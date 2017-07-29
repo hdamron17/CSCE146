@@ -11,6 +11,11 @@ default:
 	 make -s clean; \
 	fi
 
+.PHONY: _*
+
+_*:
+	@make -s pkg=${shell echo `expr "$@" : "^[_]\(.*\)"`}
+
 compile:
 	@make -s loop cmd=compile premsg="> Compiling "
 

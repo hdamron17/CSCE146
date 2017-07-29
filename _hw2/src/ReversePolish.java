@@ -1,7 +1,12 @@
 import java.util.*;
 import java.util.function.*;
+import java.io.*;
 
 public class ReversePolish {
+    private static final String WELCOME_PROMPT = "Welcome to the Reverse Polish Caclulator";
+    private static final String FILENAME_PROMPT = "Enter the filename of the script to be evaluated (default example.rpl): ";
+    private static final String DEFAULT_FILENAME = "example.rpl";
+
     private static final Map<String, BinaryOperator<Double>> OPERATORS
             = new HashMap<String, BinaryOperator<Double>>() {{
                 put("+", (x,y)->{return x+y;});
@@ -81,12 +86,39 @@ public class ReversePolish {
         System.out.println(formattedCalc(expr));
     }
 
+    public static String execFile(String filename) {
+        try {
+            Scanner input = new Scanner(new File(filename));
+            String ret = "";
+
+            while (input.hasNext()) {
+                String line = input.nextLine();
+                if (line != "") {
+                    ret += formattedCalc(line) + "\n";
+                }
+            }
+
+            return ret;
+        } catch (FileNotFoundException e) {
+            return "Error: Unable to locate file '" + filename + "'";
+        }
+    }
+
+    public static String userFilename(Scanner input) {
+        System.out.print(FILENAME_PROMPT);
+        String filename = input.nextLine();
+        if (filename.trim().length() <= 0)
+            filename = DEFAULT_FILENAME;
+        return filename;
+    }
+
     public static void main(String[] args) {
-        printCalc("1 1 +");
-        printCalc("3 2 +   -8");
-        printCalc("3\t9 * 27 -");
-        printCalc("8 3 2 * 6 - /");
-        printCalc("3 4 ^");
-        printCalc("4 3 - 8 9 - + 1234.56789 * 42 +");
+        Scanner input = new Scanner(System.in);
+
+        System.out.println(WELCOME_PROMPT);
+        String filename = userFilename(input);
+        System.out.println(execFile(filename));
+
+        input.close();
     }
 }

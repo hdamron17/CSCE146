@@ -1,0 +1,10 @@
+#! /bin/bash
+
+PROJ_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+for dir in _*; do
+ PKG=$(echo $(expr "$dir" : "^[_]\(.*\)"))
+ MAKE_ALIAS="alias $PKG=\"$PROJ_DIR/run $PKG\""
+ echo " Adding package $PKG"
+ eval "$MAKE_ALIAS"
+done;

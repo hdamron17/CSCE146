@@ -118,7 +118,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        System.out.println("Hello CSCE 146");
         Scanner input = new Scanner(System.in);
         game(input);
         input.close();

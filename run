@@ -1,0 +1,9 @@
+#! /bin/bash
+
+PKG=$1
+if [ $PKG ]; then
+ OLD_DIR=`pwd`
+ cd "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ make _$PKG
+ cd $OLD_DIR
+fi

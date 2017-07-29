@@ -1,0 +1,19 @@
+SRC=src/
+BIN=bin/
+JAVAC_OPTIONS=-d $(BIN) -sourcepath $(SRC)
+JAVA_OPTIONS=-classpath $(BIN)
+
+MAIN=Main
+
+compile: mkdirs
+	@javac $(JAVAC_OPTIONS) $(SRC)$(MAIN).java
+
+run:
+	@java $(JAVA_OPTIONS) $(MAIN)
+
+clean:
+	@rm -rf $(BIN)*
+
+mkdirs:
+	@mkdir -p $(BIN)
+	@mkdir -p $(SRC)

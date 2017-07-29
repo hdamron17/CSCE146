@@ -1,8 +1,15 @@
 SRC=src/
 BIN=bin/
-#JAVAC_OPTIONS=-d $(BIN) -sourcepath $(SRC)
-JAVAC_OPTIONS=-d $(BIN) -sourcepath $(SRC)
-JAVA_OPTIONS=-classpath $(BIN)
+
+JAVAC_OPTIONS=
+JAVA_OPTIONS=
+
+CLASSPATH=$(BIN)
+SOURCEPATH=$(SRC)
+-include *.mk
+
+JAVAC_OPTIONS += -d $(BIN) -sourcepath $(SOURCEPATH)
+JAVA_OPTIONS += -classpath $(CLASSPATH)
 
 MAIN=Main
 

@@ -1,14 +1,16 @@
-public class GenArrayQueue<T> implements GenQueue<T> {
-    private static final int DEFAULT_SIZE = 100;
-    private static final String SEPARATOR = " ";
 
-    private T[] queue;
-    private int i;
+public class GenArrayQueue<T> implements GenQueue<T> {
+    protected static final int DEFAULT_SIZE = 100;
+    protected static final String SEPARATOR = " ";
+
+    protected T[] queue;
+    protected int i;
 
     public GenArrayQueue() {
         this(DEFAULT_SIZE);
     }
 
+    @SuppressWarnings("unchecked")
     public GenArrayQueue(int size) {
         queue = (T[]) new Object[size];
         i = 0;

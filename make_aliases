@@ -1,6 +1,9 @@
 #! /bin/bash
 
 PROJ_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+OLD_DIR=`pwd`
+
+cd $PROJ_DIR
 
 for dir in _*; do
  PKG=$(echo $(expr "$dir" : "^[_]\(.*\)"))
@@ -8,3 +11,5 @@ for dir in _*; do
  echo " Adding package $PKG"
  eval "$MAKE_ALIAS"
 done;
+
+cd $OLD_DIR

@@ -4,7 +4,7 @@ import java.util.function.*;
 @SuppressWarnings("unchecked")
 public class BortSort {
     public static <T> List<Pair<T,Double>> makeList(T[] arr, Function<T,Double> makeValue) {
-        List<Pair<T,Double>> lst = new LinkedList<Pair<T,Double>>();
+        List<Pair<T,Double>> lst = new LinkedList<>();
 
         for (T item : arr) {
             lst.add(new Pair(item, makeValue.apply(item)));
@@ -99,7 +99,7 @@ public class BortSort {
 
             List<Pair<T,Double>> left = _mergeSort(lst.subList(0, half));
             List<Pair<T,Double>> right = _mergeSort(lst.subList(half, size));
-            List<Pair<T,Double>> newList = new LinkedList<Pair<T,Double>>();
+            List<Pair<T,Double>> newList = new LinkedList<>();
 
             int leftI = 0, rightI = 0;
             while (leftI < left.size() && rightI < right.size()) {
@@ -140,38 +140,41 @@ public class BortSort {
         int size = lst.size();
 
         if (size > 1) {
-            Pair<T,Double> pivot = lst.get(size/2);
+            Pair<T,Double> pivot = lst.remove(size/2);
             double pivotVal = pivot.getV();
             int left = 0;
-            int right = size-1;
+            int right = size-2;
 
             while (left != right) {
-                Pair<T,Double> oldLeft = lst.get(left);
-                Pair<T,Double> oldRight = lst.get(right);
-
                 while (left < right && lst.get(left).getV() <= pivotVal)
                     left++;
 
                 while (right > left && lst.get(right).getV() >= pivotVal)
                     right--;
 
-                System.out.println("Size = "+size+"; left = "+left+"; right = "+right);
+                Pair<T,Double> oldLeft = lst.get(left);
+
+                Pair<T,Double> oldRight = lst.get(right);
 
                 if (left != right) {
-                    System.out.println("Swapping lst["+left+"]="+oldLeft+" <-> lst["+right+"]="+oldRight);
                     lst.set(left, oldRight);
                     lst.set(right, oldLeft);
                 }
             }
 
-            List<Pair<T,Double>> leftSub = lst.subList(0, left);
-            List<Pair<T,Double>> rightSub = lst.subList(right+1, size);
+            if (pivotVal > lst.get(left).getV()) {
+                lst.add(left+1, pivot); //Move pivot to center or end if larger than last item
+                left++;
+            } else {
+                lst.add(left, pivot); //Move pivot to center
+            }
 
-            List<Pair<T,Double>> newList = new LinkedList<Pair<T,Double>>();
-            System.out.println("Left subList "+leftSub);
+            List<Pair<T,Double>> leftSub = new LinkedList<>(lst.subList(0, left));
+            List<Pair<T,Double>> rightSub = new LinkedList<>(lst.subList(left+1, size));
+
+            List<Pair<T,Double>> newList = new LinkedList<>();
             newList.addAll(_quickSort(leftSub));
-            newList.add(lst.get(left));
-            System.out.println("Right sublist "+rightSub);
+            newList.add(pivot);
             newList.addAll(_quickSort(rightSub));
 
             return newList;
@@ -197,7 +200,6 @@ public class BortSort {
     }
 
     public static void main(String[] args) {
-/*
         String[] arr = new String[]{
             "Bort",
             "asdf",
@@ -211,11 +213,13 @@ public class BortSort {
         };
 
         Function<String,Double> bortFun = (str)->{return (double)stringCount(str,"bort");};
+
+/*
+        Integer[] arr = new Integer[]{1,0,1,4,8,2,1,2,0};
+        Function<Integer,Double> bortFun = (i)->{return (double)i;};
 */
 
-        Integer[] arr = new Integer[]{4,59,0,12,30,19,25,24,25};
-        Function<Integer,Double> bortFun = (i)->{return (double)i;};
-
+        System.out.println("ORIGINAL ARRAY\n==============\n" + Arrays.toString(arr) + "\n");
 
         System.out.println("SELECTION SORT\n==============\n" + Arrays.toString(selectionSort(arr, bortFun)) + "\n");
         System.out.println("INSERTION SORT\n==============\n" + Arrays.toString(insertionSort(arr, bortFun)) + "\n");

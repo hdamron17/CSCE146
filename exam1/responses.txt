@@ -1,0 +1,254 @@
+Responses to Exam 1
+===================
+
+Part 1
+------
+
+### Short Answer
+
+1.
+
+**********
+********
+******
+****
+**
+
+2. 
+
+//ERROR did not know you could use `int[] x = {...};` without `new int[]`
+
+2
+3
+3
+5
+4
+7
+5
+9
+
+### Programming
+
+1. 
+
+public void printOut7s(int[] a) {
+    for (int item : a) {
+        if (item % 7 == 0) {
+            System.out.println(item);
+        }
+    }
+}
+
+2. 
+
+public static int[] subtract(int[] x, int[] y) {
+    int size = x.length;
+
+    if (y.length != size)
+        return null;
+
+    int[] ret = new int[size];
+    for (int i = 0; i < size; i++) {
+        ret[i] = x[i] - y[i];
+    }
+
+    return ret;
+}
+
+Part 2
+------
+
+### Short Answer
+
+1. Advantage: LinkedList can be extended by allocating enough space for the addition rather than reallocating the whole array.
+
+2. 3 -> 12 -> 4 -X> 20
+              |     A
+              '> 8 -'
+
+### Programming
+
+1. 
+
+//ERROR assumed a parameterized constructor even though none was presented
+
+public void insertAfter(T insertAfter, T toInsert) {
+    if (this.head == null) {
+        this.head = new Node();
+        this.head.data = toInsert;
+        return;
+    }
+
+    Node current = this.head;
+    while (current != this.tail) {
+        if (current.data.equals(insertAfter)) {
+            LinkNode after = current.link;
+            LinkNode newNode = new LinkNode();
+            newNode.data = toInsert;
+            newNode.link = after;
+            current.link = newNode;
+            return;
+        }
+
+        current = current.link;
+    }
+
+    LinkNode newLast = new LinkNode();
+    newLast.data = toInsert;
+    current.link = newLast;
+    this.tail = newLast;
+}
+
+2.
+
+import java.util.ArrayList;
+public class UserListAvg {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        ArrayList<Integer> nums = new ArrayList<>();
+        int userNum = input.nextInt();
+
+        //ERROR did not print to tell the user to input values
+
+        //TODO what about zero numbers which aren't handled in description?
+        while (userNum > 0) {
+            nums.add(userNum);
+            userNum = input.nextInt();
+        }
+
+        int total = 0;
+        for (int item : nums) {
+            total += item;
+        }
+
+        double avg = ((double) total) / nums.size();
+
+        System.out.println(avg);
+    }
+}
+
+Part 3
+------
+
+1.
+
+12
+15
+18
+
+2.
+
+      25 74 84 2 23 85 96
+  1.  2 23 85 96
+  2.  2 23 85 96 7
+  3.  2 23 85 96 7 12
+  4.  2 23 85 96 7 12 23
+  5.  85 96 7 12 23
+
+### Programming
+
+3.
+
+//TODO Isn't the LinkedListStack<T> type generic?
+public void enqueue(Double elem) {
+    //ERROR JJ used a parameterized constructor so maybe the assumtion was valid
+
+    LinkNode newTail = new LinkNode((T) elem, null);
+
+    if (this.head != null) {
+        this.tail.link = newTail;
+    } else {
+        this.head = newTail;
+    }
+
+    this.tail = newTail;
+}
+
+Part 4
+------
+
+### Short Answer
+
+1. 
+
+//ERROR JJ did not put .0 suffixes even though the stack is popping doubles
+
+50.0
+65.0
+52.0
+39.0
+26.0
+13.0
+0.0
+
+2. 
+
+      25 74 84 3 23 85 96 <HEAD
+  1.  25 74 84 3 23 85 96 23 <HEAD
+  2.  25 74 84 3 23 <HEAD
+  3.  25 74 84 3 23 18 <HEAD
+  4.  25 74 84 3 23 18 22 <HEAD
+  5.  25 74 84 3 23 18 <HEAD
+
+### Programming
+
+3. 
+
+//TODO same question as above that the LinkedListStack<T> is type generic
+public double pop() throws Exception {
+    if (this.head == null) {
+        throw new Exception("Cannot pop from empty stack");
+    }
+
+    LinkNode oldHead = this.head;
+    this.head = this.head.link;
+    return (double) oldHead.data;
+}
+
+Part 5
+------
+
+### Short Answer
+
+1. 
+
+10
+5
+2
+1
+
+Part 6
+------
+
+1. 
+
+// 2^11 = 2048
+11
+
+2.
+
+       (34 6 89 55 7 42 9 1)
+            |          |
+      (34 6 89 55) (7 42 9 1)
+       |      |       |     |
+   (34 6)  (89 55) (7 42)   (9 1)
+   |  |     |  |    |   |    |  |
+(34) (6) (89) (55) (7) (42) (9) (1)
+   |  |     |  |    |   |    |  |
+   (6 34)  (55 89) (7 42)   (1 9)
+       |      |       |     |
+      (6 34 55 89) (1 7 9 42)
+            |         |
+return (1 6 7 9 34 42 55 89)
+
+3.
+
+( O(n!) O(2^n) O(n^3) O(n^2) O(n log n) O(n) O(sqrt n) O(log n) O(1) )
+
+
+
+
+
+
+
+

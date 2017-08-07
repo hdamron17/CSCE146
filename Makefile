@@ -66,7 +66,7 @@ backup:
 	@cp Makefile .TempMakefile
 
 package:
-	@if [ $(pkg) ]; then \
+	@if [ $(pkg) != hello_world ]; then \
 	 echo "> Creating package $(pkg)"; \
 	 mkdir -p "_$(pkg)/src"; \
 	 mkdir -p "_$(pkg)/bin"; \

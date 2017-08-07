@@ -47,15 +47,14 @@ public class IntBSTree {
     }
 
     public void remove(int elem) {
-        _remove(this.root, null, elem, true);
+        _remove(this.root, null, elem, true, true);
     }
 
     //boolean takeFrom designates left or right in case of two children -> alternates in recursion; true:left
-    public void _remove(Node root, Node rootParent, int elem, boolean takeFrom) {
+    //boolean parentTakeFrom is equivalent of takeFrom for parent to root (ignored if parent is null)
+    public void _remove(Node root, Node rootParent, int elem, boolean takeFrom, boolean parentTakeFrom) {
         Node current = root;
         Node parent = null;
-
-        System.out.println("Removing "+elem+" from \n'\n"+_inOrder(root,0)+"'");
 
         while (current.data != elem) {
             parent = current;
@@ -80,19 +79,14 @@ public class IntBSTree {
             Node currentChild = null;
 
             while (nextChild != null) {
-                currentChild = child;
+                currentChild = nextChild;
                 nextChild = takeFrom ? nextChild.rightChild : nextChild.leftChild;
             }
 
+            boolean newParentTakeFrom = child.data < current.data;
             current.data = currentChild.data;
-            _remove(child, current, currentChild.data, !takeFrom);
+            _remove(child, current, currentChild.data, !takeFrom, newParentTakeFrom);
             return;
-        }
-
-        if (parent == null) {
-            //Do replacement on root if parent si null
-            parent = rootParent;
-            current = root;
         }
 
         if (parent != null) {
@@ -100,6 +94,13 @@ public class IntBSTree {
                 parent.leftChild = replacement;
             } else {
                 parent.rightChild = replacement;
+            }
+        } else if (rootParent != null) {
+            //Do replacement on root if parent si null
+            if (parentTakeFrom) {
+                rootParent.leftChild = replacement;
+            } else {
+                rootParent.rightChild = replacement;
             }
         } else {
             this.root = replacement;
@@ -134,7 +135,7 @@ public class IntBSTree {
     }
 
     public String toString() {
-        return _inOrder(this.root, 0);
+        return "( " +  _inOrder(this.root, 0) + ")";
     }
 
     public String _inOrder(Node current, int depth) {
@@ -143,8 +144,7 @@ public class IntBSTree {
         } else {
             String ret = "";
             ret += _inOrder(current.leftChild, depth+1);
-            for (int i = 0; i < depth; i++) ret += " ";
-            ret += current.data + "\n";
+            ret += current.data + " ";
             ret += _inOrder(current.rightChild, depth+1);
             return ret;
         }

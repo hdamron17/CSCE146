@@ -1,1 +1,0 @@
-JAVA_OPTIONS += "-Xss228k"

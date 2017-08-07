@@ -94,6 +94,10 @@ public class HeapList<T extends Comparable<T>> {
         return ret + ")";
     }
 
+    public List<T> getBreadthOrder() {
+        return heap;
+    }
+
     public String strHeapSort() {
         List<T> sorted = getHeapSort();
         String ret = "(";

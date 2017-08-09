@@ -119,6 +119,10 @@ public class HeapList<T extends Comparable<T>> {
         return sorted;
     }
 
+    public int getSize() {
+        return heap.size();
+    }
+
     public HeapList<T> shallowCopy() {
         HeapList<T> copy = new HeapList<>(this.cmp);
         copy.heap = new ArrayList();

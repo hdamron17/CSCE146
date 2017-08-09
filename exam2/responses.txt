@@ -1,4 +1,64 @@
 Exam 2
 ======
 
+Part 6
+------
+
+1. O(1) O(log n) O(n) O(n log n) O(n^2) O(n^3) O(2^n) O(n!) O(n^n)
+
+2.
+
+Binary Search                   O(log n)
+Merge Sort                      O(n log n)
+Quick Sort                      O(n^2)
+Insertion Sort                  O(n^2)
+Bubble Sort                     O(n^2)
+Selection Sort                  O(n^2)
+Binary Search Tree Insertion    O(log n)
+Tower of Hanoi                  O(n!)
+Travelling Salesperson          O(n!)
+
+3.
+
+public static int binarySearch(int[] arr, int target) {
+    if (arr.length <= 0)
+        return -1;
+
+    int currentPos = 0;
+    boolean done = false;
+
+    while (!done) {
+        if (currentPos >= arr.length) {
+            done = true;
+        } else if (arr[currentPos] == target) {
+            return currentPos;
+        } else {
+            currentPos = 2 * currentPos + ((target < arr[currentPos]) ? 1 : 2);
+        }
+    }
+    return -1;
+}
+
+Part 7
+------
+
+4.
+           20
+     16          28
+   8   17      25   35
+ 1  9    18  22    33 42
+
+           20
+     17          28
+   8   18      25   35
+ 1  9        22    33 42
+
+5.
+
+20 16 8 1 9 17 18 28 25 22 35 33 42
+
+6.
+
+
+
 

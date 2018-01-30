@@ -1,5 +1,5 @@
 public class ProcessHeap {
-    private static int DEBUG = 3; //Levels 0-5 with 5 being most verbose
+    private static int DEBUG = 0; //Levels 0-5 with 5 being most verbose
     private static void debug(int level, Object toPrint) {
         if (DEBUG >= level) {
             System.out.println(toPrint.toString());

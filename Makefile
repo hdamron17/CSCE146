@@ -10,9 +10,7 @@ default:
 	@make -s cleanpkg
 
 all:
-	@make -s compile
-	@make -s run
-	@make -s clean
+	@make -s _*
 
 _*:
 	@make -s pkg=${shell echo `expr "$@" : "^[_]\(.*\)"`}

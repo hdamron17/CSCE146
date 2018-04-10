@@ -8,4 +8,4 @@ Usage
 
 * `make all` compiles, runs, and cleans all homeworks and labs sequentially.
 * `./run <pkg>` and `make package _<pkg>` both compile, run, and clean a specific package
-* `source make_aliass` creates aliases for each homework and lab assignment under the directory name without leading underscore
+* `source make_alias` creates aliases for each homework and lab assignment under the directory name without leading underscore
